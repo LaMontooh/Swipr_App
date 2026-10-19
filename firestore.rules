@@ -1,0 +1,21 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId} {
+      function owner() {
+        return request.auth != null && request.auth.uid == userId;
+      }
+      function validProfile() {
+        let d = request.resource.data;
+        return d.keys().hasOnly(['uid', 'email', 'createdAt', 'username', 'photoData', 'themeMode'])
+          && (!('uid' in d) || d.uid == userId)
+          && (!('username' in d) || (d.username is string && d.username.matches('^[a-zA-Z0-9_]{3,15}$')))
+          && (!('photoData' in d) || d.photoData == null || (d.photoData is string && d.photoData.size() <= 180030 && d.photoData.matches('^data:image/jpeg;base64,.*$')))
+          && (!('themeMode' in d) || d.themeMode in ['light', 'dark', 'system']);
+      }
+      allow read: if owner();
+      allow create, update: if owner() && validProfile();
+      allow delete: if owner();
+    }
+  }
+}

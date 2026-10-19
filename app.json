@@ -1,21 +1,56 @@
 {
   "expo": {
     "scheme": "swiprapp",
-    "name": "SWIPR_APP",
-    "slug": "swipr_app",
+    "name": "Swipr",
+    "slug": "swipr",
     "version": "1.0.0",
     "orientation": "portrait",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.swipr-app"
     },
     "android": {
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "permissions": [
+        "android.permission.READ_MEDIA_IMAGES",
+        "android.permission.READ_MEDIA_VISUAL_USER_SELECTED",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE"
+      ],
+      "package": "com.anonymous.swipr_app",
+      "blockedPermissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.READ_MEDIA_VIDEO",
+        "android.permission.READ_MEDIA_AUDIO"
+      ]
     },
     "plugins": [
       "expo-router",
-      ["expo-image-picker", { "photosPermission": "Allow access to select a profile photo." }]
-    ]
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Choose a profile photo for your Swipr account.",
+          "cameraPermission": false,
+          "microphonePermission": false
+        }
+      ],
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "Swipr uses your photos for private, on-device cleanup. Nothing is deleted until you approve it.",
+          "savePhotosPermission": "Swipr needs your approval to remove photos you choose.",
+          "isAccessMediaLocationEnabled": false,
+          "granularPermissions": ["photo"]
+        }
+      ],
+      "./plugins/withMinimumIosVersion.cjs",
+      "expo-font"
+    ],
+    "web": {
+      "bundler": "metro",
+      "output": "single"
+    }
   }
 }
