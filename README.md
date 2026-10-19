@@ -80,7 +80,7 @@ The project stays on Expo SDK 54, updated within that SDK's compatible patch ver
 
 ## Learn your code
 
-Start with `CODE_GUIDE.md`. Screens keep their React layout and a named `styles` section at the bottom, like your original. JavaScript for Firebase, photos, and cleanup is grouped into small files, with comments where behavior matters. `npm run format` keeps the layout readable.
+Screens keep their React layout and a named `styles` section at the bottom, like your original. JavaScript for Firebase, photos, and cleanup is grouped into small files, with comments where behavior matters. `npm run format` keeps the layout readable.
 
 Documentation used for the implementation:
 
